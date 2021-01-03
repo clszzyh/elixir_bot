@@ -25,3 +25,8 @@ elixir_bot-*.tar
 
 # Temporary files for e.g. tests
 /tmp
+
+*.plt
+*.plt.hash
+
+NOTE.md

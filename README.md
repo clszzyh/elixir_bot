@@ -1,21 +1,12 @@
 # ElixirBot
 
-**TODO: Add description**
+[![ci](https://github.com/clszzyh/elixir_bot/workflows/ci/badge.svg)](https://github.com/clszzyh/elixir_bot/actions)
+[![Hex.pm](https://img.shields.io/hexpm/v/elixir_bot)](http://hex.pm/packages/elixir_bot)
+[![Hex.pm](https://img.shields.io/hexpm/dt/elixir_bot)](http://hex.pm/packages/elixir_bot)
+[![Documentation](https://img.shields.io/badge/hexdocs-latest-blue.svg)](https://hexdocs.pm/elixir_bot/readme.html)
 
-## Installation
+<!-- MDOC -->
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `elixir_bot` to your list of dependencies in `mix.exs`:
+A Github Bot by Elixir.
 
-```elixir
-def deps do
-  [
-    {:elixir_bot, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/elixir_bot](https://hexdocs.pm/elixir_bot).
-
+<!-- MDOC -->
