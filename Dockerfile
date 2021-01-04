@@ -10,7 +10,9 @@ ENV HEX_HTTP_TIMEOUT=500
 RUN mix local.hex --force && \
     mix local.rebar --force
 
-COPY mix.exs mix.lock README.md VERSION ./
+COPY mix.exs mix.lock ./
+RUN echo "0.0.1" > VERSION
+RUN echo "## README" > README.md
 RUN mix deps.get
 
 RUN mix deps.compile
