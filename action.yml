@@ -1,0 +1,18 @@
+name: "elixir_bot"
+author: "clszzyh"
+description: "A Github Bot by Elixir."
+inputs:
+  GITHUB_TOKEN:
+    description: "Github Token"
+    required: true
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - "-token"
+    - ${{ inputs.GITHUB_TOKEN }}
+
+branding:
+  icon: code
+  color: gray-dark

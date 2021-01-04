@@ -6,16 +6,13 @@ defmodule ElixirBot do
   @version Mix.Project.config()[:version]
   def version, do: @version
 
-  @doc """
-  Hello world.
+  def main(args) do
+    IO.puts(inspect({:invoke, args}))
+    IO.puts(inspect({:argv, System.argv()}))
+    IO.puts(inspect({:invoke, System.argv(args)}))
 
-  ## Examples
-
-      iex> ElixirBot.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    options = [switches: [file: :string], aliases: [f: :file]]
+    result = OptionParser.parse!(args, options)
+    IO.puts(inspect(result))
   end
 end

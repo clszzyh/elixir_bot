@@ -34,6 +34,7 @@ defmodule ElixirBot.MixProject do
         main: "readme",
         extras: ["README.md", "CHANGELOG.md"]
       ],
+      escript: [main_module: ElixirBot],
       deps: deps(),
       releases: releases(),
       aliases: aliases()
@@ -86,6 +87,7 @@ defmodule ElixirBot.MixProject do
 
   defp aliases do
     [
+      docker_build: "cmd docker build -t elixir_bot:latest .",
       ci: [
         "compile --warnings-as-errors --force --verbose",
         "format --check-formatted",

@@ -30,3 +30,5 @@ elixir_bot-*.tar
 *.plt.hash
 
 NOTE.md
+
+elixir_bot
