@@ -8,14 +8,6 @@ inputs:
   token:
     description: "Github Token"
     required: true
-  input:
-    description: "Demo"
-    default: "hello"
-    required: false
-  foo:
-    description: "Bar"
-    default: "world"
-    required: false
 
 runs:
   using: "docker"
@@ -23,5 +15,3 @@ runs:
   args:
     - "-token"
     - ${{ inputs.token }}
-    - "-foo"
-    - ${{ inputs.foo }}

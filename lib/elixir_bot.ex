@@ -11,7 +11,7 @@ defmodule ElixirBot do
     IO.puts(inspect({:argv, System.argv()}))
     IO.puts(inspect({:invoke, System.argv(args)}))
 
-    options = [switches: [file: :string], aliases: [f: :file]]
+    options = [switches: [token: :string]]
     result = OptionParser.parse!(args, options)
     IO.puts(inspect(result))
   end
