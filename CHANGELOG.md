@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.1.6](https://github.com/clszzyh/elixir_bot/tree/v0.1.6) (2021-01-04)
+
+[Full Changelog](https://github.com/clszzyh/elixir_bot/compare/v0.1.5...v0.1.6)
+
 ## [v0.1.5](https://github.com/clszzyh/elixir_bot/tree/v0.1.5) (2021-01-04)
 
 [Full Changelog](https://github.com/clszzyh/elixir_bot/compare/v0.1.4...v0.1.5)
