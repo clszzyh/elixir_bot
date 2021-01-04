@@ -51,6 +51,9 @@ jobs:
           echo ::set-output name=RUN_NUMBER::${{ github.run_number }}
           START_TIME=$(date +%s)
           echo ::set-output name=START_TIME::$START_TIME
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Get tag version
         id: get_tag_version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
@@ -63,9 +66,6 @@ jobs:
           echo $NEW_VERSION > VERSION
         env:
           VERSION: ${{ steps.get_tag_version.outputs.VERSION }}
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Set up Elixir
         uses: actions/setup-elixir@v1
         with:
