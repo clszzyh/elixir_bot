@@ -8,7 +8,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: "ACTION_Dockerfile"
   args:
     - "-token"
     - ${{ inputs.GITHUB_TOKEN }}

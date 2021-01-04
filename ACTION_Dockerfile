@@ -1,0 +1,3 @@
+FROM ghcr.io/clszzyh/elixir_bot:latest
+
+LABEL build_date="2021-01-04"
