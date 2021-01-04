@@ -1,0 +1,32 @@
+# Git data
+.git
+
+# Elixir build artifacts
+_build
+## !_build/prod/lib
+# Don't ignore the directory where our releases get built
+## !_build/prod/rel/redpack/releases/1.0.0/redpack.tar.gz
+deps
+
+# Node build artifacts
+node_modules
+
+k8s
+doc
+
+Makefile
+Dockerfile
+
+# Tests
+test
+
+# Compiled static artifacts
+priv/static
+
+priv/plts
+
+.env
+
+*.dump
+## *.tar
+## *.gz
