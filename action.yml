@@ -1,6 +1,9 @@
 name: "elixir_bot"
 author: "clszzyh"
 description: "A Github Bot by Elixir."
+branding:
+  icon: code
+  color: gray-dark
 inputs:
   GITHUB_TOKEN:
     description: "Github Token"
@@ -8,11 +11,4 @@ inputs:
 
 runs:
   using: "docker"
-  image: "ACTION_Dockerfile"
-  args:
-    - "-token"
-    - ${{ inputs.GITHUB_TOKEN }}
-
-branding:
-  icon: code
-  color: gray-dark
+  image: "docker://ghcr.io/clszzyh/elixir_bot:latest"
