@@ -405,6 +405,12 @@ jobs:
           publish_dir: ./doc
           force_orphan: true
           commit_message: ${{ github.event.head_commit.message || 'unknown' }}
+      - name: Mix release
+        run: mix release --overwrite
+        env:
+          MIX_ENV: prod
+      - name: release version
+        run: _build/prod/rel/elixir_bot/bin/elixir_bot eval "IO.puts ElixirBot.version"
       - name: Publish on hex.pm
         run: mix hex.publish --yes
         env:

@@ -14,7 +14,6 @@ defmodule ElixirBot.MixProject do
       start_permanent: Mix.env() == :prod,
       preferred_cli_env: [ci: :test],
       elixirc_options: [warnings_as_errors: System.get_env("CI") == "true"],
-      deps: deps(),
       package: [
         licenses: ["MIT"],
         files: ["lib", ".formatter.exs", "mix.exs", "README*", "CHANGELOG*", "VERSION"],
@@ -35,8 +34,25 @@ defmodule ElixirBot.MixProject do
         main: "readme",
         extras: ["README.md", "CHANGELOG.md"]
       ],
+      deps: deps(),
+      releases: releases(),
       aliases: aliases()
     ]
+  end
+
+  defp releases do
+    [
+      elixir_bot: [
+        include_executables_for: [:unix],
+        steps: [:assemble, &copy_extra_files/1],
+        applications: [runtime_tools: :permanent]
+      ]
+    ]
+  end
+
+  defp copy_extra_files(release) do
+    File.cp!(".iex.exs", Path.join(release.path, ".iex.exs"))
+    release
   end
 
   # Run "mix help compile.app" to learn about applications.
