@@ -7,8 +7,8 @@ RUN mkdir /app
 WORKDIR /app
 
 ENV HEX_HTTP_TIMEOUT=500
-ENV HEX_MIRROR=http://hexpm.upyun.com
-ENV HEX_HTTP_CONCURRENCY=1
+# ENV HEX_MIRROR=http://hexpm.upyun.com
+# ENV HEX_HTTP_CONCURRENCY=1
 
 RUN mix local.hex --force && \
     mix local.rebar --force
