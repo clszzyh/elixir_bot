@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/clszzyh/elixir_bot/tree/HEAD)
+## [v0.1.3](https://github.com/clszzyh/elixir_bot/tree/v0.1.3) (2021-01-04)
 
-[Full Changelog](https://github.com/clszzyh/elixir_bot/compare/v0.1.2...HEAD)
+[Full Changelog](https://github.com/clszzyh/elixir_bot/compare/v0.1.2...v0.1.3)
 
 **Closed issues:**
 
