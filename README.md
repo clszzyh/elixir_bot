@@ -10,3 +10,7 @@
 A Github Bot by Elixir.
 
 <!-- MDOC -->
+
+Moduledoc here
+
+<!-- MDOC -->
