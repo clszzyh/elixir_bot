@@ -8,7 +8,20 @@ inputs:
   token:
     description: "Github Token"
     required: true
+  input:
+    description: "Demo"
+    default: "hello"
+    required: false
+  foo:
+    description: "Bar"
+    default: "world"
+    required: false
 
 runs:
   using: "docker"
   image: "docker://ghcr.io/clszzyh/elixir_bot:main"
+  args:
+    - "-token"
+    - ${{ inputs.token }}
+    - "-foo"
+    - ${{ inputs.foo }}

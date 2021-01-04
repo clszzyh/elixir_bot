@@ -12,3 +12,4 @@ jobs:
         uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          input: ${{ secrets.GITHUB_TOKEN }}
