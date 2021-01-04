@@ -2,16 +2,13 @@ name: event
 
 on:
   workflow_dispatch:
-    inputs:
-      issue_number:
-        description: 'Issue number'
-        required: true
 
 jobs:
   exbot:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: elixir_bot
-        uses: clszzyh/elixir_bot@main
+        uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
