@@ -4,8 +4,6 @@
 # Elixir build artifacts
 _build
 ## !_build/prod/lib
-# Don't ignore the directory where our releases get built
-## !_build/prod/rel/redpack/releases/1.0.0/redpack.tar.gz
 deps
 
 # Node build artifacts

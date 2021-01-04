@@ -1,18 +1,23 @@
 name: "elixir_bot"
 author: "clszzyh"
 description: "A Github Bot by Elixir."
-inputs:
-  GITHUB_TOKEN:
-    description: "Github Token"
-    required: true
-
-runs:
-  using: "docker"
-  image: "ACTION_Dockerfile"
-  args:
-    - "-token"
-    - ${{ inputs.GITHUB_TOKEN }}
-
 branding:
   icon: code
   color: gray-dark
+inputs:
+  github:
+    description: "Github Object"
+    default: ${{ toJson(github) }}
+    required: false
+  report_issue:
+    description: "Report Error By Create Issue"
+    default: "true"
+    required: false
+  token:
+    description: "Github Token"
+    default: ${{ github.token }}
+    required: false
+
+runs:
+  using: "docker"
+  image: "docker://ghcr.io/clszzyh/elixir_bot:main"

@@ -3,7 +3,7 @@ defmodule ElixirBot.MixProject do
 
   @version String.trim(File.read!("VERSION"))
   @github_url "https://github.com/clszzyh/elixir_bot"
-  @description String.trim(Enum.at(String.split(File.read!("README.md"), "<!-- MDOC -->"), 1, ""))
+  @description "A Github Bot by Elixir"
 
   def project do
     [
@@ -59,7 +59,8 @@ defmodule ElixirBot.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {ElixirBot.Application, []}
     ]
   end
 
@@ -78,7 +79,12 @@ defmodule ElixirBot.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tentacat, "~> 2.0"},
+      {:earmark_parser, "~> 1.4"},
+      {:sand, "~> 0.1.0"},
+      {:nimble_parsec, "~> 1.0"},
+      {:action, "~> 0.1"},
+      # {:action, github: "clszzyh/action"},
+      # {:action, path: "../action"},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", runtime: false}
@@ -88,6 +94,7 @@ defmodule ElixirBot.MixProject do
   defp aliases do
     [
       docker_build: "cmd docker build -t elixir_bot:latest .",
+      docker_pull: "cmd docker pull ghcr.io/clszzyh/elixir_bot:main",
       ci: [
         "compile --warnings-as-errors --force --verbose",
         "format --check-formatted",

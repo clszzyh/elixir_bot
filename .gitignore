@@ -31,4 +31,4 @@ elixir_bot-*.tar
 
 NOTE.md
 
-elixir_bot
+/priv/*.json
