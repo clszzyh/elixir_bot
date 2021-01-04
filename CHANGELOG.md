@@ -1,8 +1,8 @@
 # Changelog
 
-## [v0.1.3](https://github.com/clszzyh/elixir_bot/tree/v0.1.3) (2021-01-04)
+## [v0.1.4](https://github.com/clszzyh/elixir_bot/tree/v0.1.4) (2021-01-04)
 
-[Full Changelog](https://github.com/clszzyh/elixir_bot/compare/v0.1.2...v0.1.3)
+[Full Changelog](https://github.com/clszzyh/elixir_bot/compare/v0.1.2...v0.1.4)
 
 **Closed issues:**
 
