@@ -7,7 +7,16 @@ branding:
 inputs:
   token:
     description: "Github Token"
-    required: true
+    default: ${{ github.token }}
+    required: false
+  owner:
+    description: "Github Repo Owner"
+    default: ${{ github.repository_owner }}
+    required: false
+  repo:
+    description: "Github Repo Name"
+    default: ${{ github.repository }}
+    required: false
 
 runs:
   using: "docker"
@@ -15,3 +24,7 @@ runs:
   args:
     - "-token"
     - ${{ inputs.token }}
+    - "-owner"
+    - ${{ inputs.owner }}
+    - "-repo"
+    - ${{ inputs.repo }}
