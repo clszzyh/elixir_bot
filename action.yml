@@ -5,7 +5,7 @@ branding:
   icon: code
   color: gray-dark
 inputs:
-  GITHUB_TOKEN:
+  token:
     description: "Github Token"
     required: true
 

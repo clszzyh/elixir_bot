@@ -10,5 +10,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: elixir_bot
         uses: ./
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
