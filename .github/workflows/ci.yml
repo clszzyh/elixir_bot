@@ -51,6 +51,18 @@ jobs:
           echo ::set-output name=RUN_NUMBER::${{ github.run_number }}
           START_TIME=$(date +%s)
           echo ::set-output name=START_TIME::$START_TIME
+      - name: Get tag version
+        id: get_tag_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+      - name: Modify version and changelog
+        if: contains(github.ref, 'tags/v')
+        run: |
+          NEW_VERSION=$(echo $VERSION | sed -e 's/^v//')
+          echo $NEW_VERSION
+          cat VERSION
+          echo $NEW_VERSION > VERSION
+        env:
+          VERSION: ${{ steps.get_tag_version.outputs.VERSION }}
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
