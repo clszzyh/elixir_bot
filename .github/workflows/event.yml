@@ -1,0 +1,15 @@
+name: event
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number'
+        required: true
+
+jobs:
+  exbot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: elixir_bot
+        uses: clszzyh/elixir_bot@main
