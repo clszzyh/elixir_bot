@@ -15,6 +15,12 @@ defmodule ElixirBot.MixProject do
       preferred_cli_env: [ci: :test],
       elixirc_options: [warnings_as_errors: System.get_env("CI") == "true"],
       deps: deps(),
+      package: [
+        licenses: ["MIT"],
+        files: ["lib", ".formatter.exs", "mix.exs", "README*", "CHANGELOG*", "VERSION"],
+        exclude_patterns: ["priv/plts", ".DS_Store"],
+        links: %{"GitHub" => @github_url, "Changelog" => @github_url <> "/blob/main/CHANGELOG.md"}
+      ],
       dialyzer: [
         plt_core_path: "priv/plts",
         plt_add_deps: :transitive,
