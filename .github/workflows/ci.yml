@@ -6,12 +6,12 @@ name: ci
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     tags: [ "v*.*.*" ]
     paths-ignore:
       - '**.md'
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   ELIXIRC_OPTS: "--warnings-as-errors"
@@ -383,7 +383,7 @@ jobs:
           cat VERSION
           echo $NEW_VERSION > VERSION
           git add VERSION CHANGELOG.md && git commit -m "Update version and changelog" || echo "No changes to CHANGELOG.md"
-          git push "https://$GITHUB_REPOSITORY_OWNER:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:master
+          git push "https://$GITHUB_REPOSITORY_OWNER:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:main
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
       - name: Create Release
