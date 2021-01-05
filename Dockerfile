@@ -33,16 +33,6 @@ ENV LANG=C.UTF-8
 ARG GIT_REV
 ENV GIT_REV ${GIT_REV}
 
-# RUN apk add bash \
-# && rm -rf /tmp/* \
-# && rm -rf /var/lib/apt/lists/* \
-#     && rm -rf /var/cache/apk/*
-
-# RUN mkdir /app
-# WORKDIR /app
-# COPY --from=build /app/_build/prod/rel/elixir_bot ./
-# COPY --from=build /app/.iex.exs ./.iex.exs
 COPY --from=build /app/elixir_bot /
-# ENV HOME=/app
 
 ENTRYPOINT ["/elixir_bot"]

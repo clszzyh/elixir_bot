@@ -27,6 +27,8 @@ defmodule ElixirBot do
     opt = struct(__MODULE__, data)
 
     Logger.debug(inspect(opt))
+
+    Logger.info(inspect(System.get_env()))
     opt |> handle() |> result(opt)
   end
 
