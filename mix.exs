@@ -79,6 +79,7 @@ defmodule ElixirBot.MixProject do
   defp deps do
     [
       {:tentacat, "~> 2.0"},
+      {:earmark, "~> 1.4"},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", runtime: false}

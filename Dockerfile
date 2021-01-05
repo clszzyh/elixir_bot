@@ -1,4 +1,4 @@
-FROM elixir:alpine as build
+FROM hexpm/elixir:1.11.3-erlang-23.1.2-alpine-3.12.1 as build
 
 LABEL build_date="2021-01-04"
 
@@ -26,7 +26,7 @@ RUN mix compile
 RUN mix escript.build
 
 # FROM alpine:latest AS app
-FROM elixir:alpine AS app
+FROM hexpm/elixir:1.11.3-erlang-23.1.2-alpine-3.12.1 AS app
 ENV MIX_ENV=prod
 ENV LANG=C.UTF-8
 
