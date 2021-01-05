@@ -6,24 +6,56 @@ defmodule ElixirBot do
   @version Mix.Project.config()[:version]
   def version, do: @version
 
+  require Logger
+
   @type t :: %__MODULE__{
           token: binary(),
-          owner: binary(),
-          repo: binary(),
-          github: map()
+          sha: binary(),
+          repository: binary(),
+          event_name: binary(),
+          event: map()
         }
-  @enforce_keys [:token, :owner, :repo, :github]
+  @enforce_keys [:token, :sha, :repository, :event_name, :event]
   defstruct @enforce_keys
 
+  @typep result :: :ok | :ignore
+
+  @spec main([binary()]) :: :ok
   def main(args) do
-    options = [strict: [token: :string, repo: :string, github: :string]]
+    {[github: github], _, _} = OptionParser.parse(args, strict: [github: :string])
+    %{} = data = Jason.decode!(github, keys: :atoms)
+    opt = struct(__MODULE__, data)
 
-    {[token: token, repo: repo_name, github: github], _, _} = OptionParser.parse(args, options)
-    [owner, repo | []] = String.split(repo_name, "/")
-    github = Jason.decode!(github)
+    Logger.debug(inspect(opt))
+    opt |> handle() |> result(opt)
+  end
 
-    opt = %__MODULE__{token: token, owner: owner, repo: repo, github: github}
+  @spec handle(t()) :: result()
+  def handle(%__MODULE__{
+        event_name: "issue_comment",
+        event: %{action: action, comment: %{body: body}}
+      })
+      when action in ["created"] do
+    Logger.warn(action: action, body: body)
+    :ok
+  end
 
-    IO.puts(inspect({args, opt}))
+  def handle(%__MODULE__{event_name: "issues", event: %{action: action, issue: %{body: body}}})
+      when action in ["opened", "edited"] do
+    Logger.warn(action: action, body: body)
+    :ok
+  end
+
+  def handle(_), do: :ignore
+
+  @spec result(result(), t()) :: :ok
+  defp result(:ok, %__MODULE__{event_name: event_name}) do
+    Logger.info("[ok] #{event_name}")
+    :ok
+  end
+
+  defp result(:ignore, %__MODULE__{event_name: event_name}) do
+    Logger.info("[ignore] #{event_name}")
+    :ok
   end
 end

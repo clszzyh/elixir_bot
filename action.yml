@@ -5,14 +5,6 @@ branding:
   icon: code
   color: gray-dark
 inputs:
-  token:
-    description: "Github Token"
-    default: ${{ github.token }}
-    required: false
-  repo:
-    description: "Github Repo Name"
-    default: ${{ github.repository }}
-    required: false
   github:
     description: "Github Object"
     default: ${{ toJson(github) }}
@@ -22,9 +14,5 @@ runs:
   using: "docker"
   image: "docker://ghcr.io/clszzyh/elixir_bot:main"
   args:
-    - "--token"
-    - ${{ inputs.token }}
-    - "--repo"
-    - ${{ inputs.repo }}
     - "--github"
     - ${{ inputs.github }}
