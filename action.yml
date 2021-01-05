@@ -9,13 +9,21 @@ inputs:
     description: "Github Token"
     default: ${{ github.token }}
     required: false
-  owner:
-    description: "Github Repo Owner"
-    default: ${{ github.repository_owner }}
-    required: false
   repo:
     description: "Github Repo Name"
     default: ${{ github.repository }}
+    required: false
+  event:
+    description: "Github Action Event"
+    default: ${{ toJson(github.event) }}
+    required: false
+  runner:
+    description: "Github Action Runner"
+    default: ${{ toJson(runner) }}
+    required: false
+  job:
+    description: "Github Action Job"
+    default: ${{ toJson(job) }}
     required: false
 
 runs:
@@ -24,7 +32,11 @@ runs:
   args:
     - "--token"
     - ${{ inputs.token }}
-    - "--owner"
-    - ${{ inputs.owner }}
     - "--repo"
     - ${{ inputs.repo }}
+    - "--event"
+    - ${{ inputs.event }}
+    - "--runner"
+    - ${{ inputs.runner }}
+    - "--job"
+    - ${{ inputs.job }}

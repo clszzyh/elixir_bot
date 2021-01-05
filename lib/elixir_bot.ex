@@ -6,13 +6,22 @@ defmodule ElixirBot do
   @version Mix.Project.config()[:version]
   def version, do: @version
 
-  def main(args) do
-    IO.puts(inspect({:invoke, args}))
-    IO.puts(inspect({:argv, System.argv()}))
-    IO.puts(inspect({:invoke, System.argv(args)}))
+  @type t :: %__MODULE__{
+          token: binary(),
+          owner: binary(),
+          repo: binary()
+        }
+  @enforce_keys [:token, :owner, :repo]
+  defstruct [:token, :owner, :repo]
 
-    options = [strict: [token: :string, owner: :string, repo: :string]]
-    result = OptionParser.parse!(args, options)
-    IO.puts(inspect(result))
+  def main(args) do
+    options = [strict: [token: :string, repo: :string]]
+
+    {[token: token, repo: repo_name], _, _} = OptionParser.parse(args, options)
+    [owner, repo | []] = String.split(repo_name, "/")
+
+    opt = %__MODULE__{token: token, owner: owner, repo: repo}
+
+    IO.puts(inspect({args, opt}))
   end
 end
