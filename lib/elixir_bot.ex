@@ -9,18 +9,20 @@ defmodule ElixirBot do
   @type t :: %__MODULE__{
           token: binary(),
           owner: binary(),
-          repo: binary()
+          repo: binary(),
+          github: map()
         }
-  @enforce_keys [:token, :owner, :repo]
-  defstruct [:token, :owner, :repo]
+  @enforce_keys [:token, :owner, :repo, :github]
+  defstruct @enforce_keys
 
   def main(args) do
-    options = [strict: [token: :string, repo: :string]]
+    options = [strict: [token: :string, repo: :string, github: :string]]
 
-    {[token: token, repo: repo_name], _, _} = OptionParser.parse(args, options)
+    {[token: token, repo: repo_name, github: github], _, _} = OptionParser.parse(args, options)
     [owner, repo | []] = String.split(repo_name, "/")
+    github = Jason.decode!(github)
 
-    opt = %__MODULE__{token: token, owner: owner, repo: repo}
+    opt = %__MODULE__{token: token, owner: owner, repo: repo, github: github}
 
     IO.puts(inspect({args, opt}))
   end

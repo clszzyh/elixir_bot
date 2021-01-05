@@ -13,17 +13,9 @@ inputs:
     description: "Github Repo Name"
     default: ${{ github.repository }}
     required: false
-  event:
-    description: "Github Action Event"
-    default: ${{ toJson(github.event) }}
-    required: false
-  runner:
-    description: "Github Action Runner"
-    default: ${{ toJson(runner) }}
-    required: false
-  job:
-    description: "Github Action Job"
-    default: ${{ toJson(job) }}
+  github:
+    description: "Github Object"
+    default: ${{ toJson(github) }}
     required: false
 
 runs:
@@ -34,9 +26,5 @@ runs:
     - ${{ inputs.token }}
     - "--repo"
     - ${{ inputs.repo }}
-    - "--event"
-    - ${{ inputs.event }}
-    - "--runner"
-    - ${{ inputs.runner }}
-    - "--job"
-    - ${{ inputs.job }}
+    - "--github"
+    - ${{ inputs.github }}
