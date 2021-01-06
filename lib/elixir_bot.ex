@@ -7,10 +7,9 @@ defmodule ElixirBot do
   def version, do: @version
 
   require Logger
-  alias Action.Api
   alias Action.Github
 
-  @typep result :: :ok | :ignore
+  @type result :: :ok | :ignore
 
   @spec main :: :ok
   def main do
@@ -23,25 +22,25 @@ defmodule ElixirBot do
   @spec handle(Github.t()) :: result()
   def handle(%{event_name: "issue_comment", event: %{action: action, comment: %{body: body}}})
       when action in ["created"] do
-    Api.debug(inspect({action, body}))
+    Logger.debug(inspect({action, body}))
     :ok
   end
 
   def handle(%{event_name: "issues", event: %{action: action, issue: %{body: body}}})
       when action in ["opened", "edited"] do
-    Api.debug(inspect({action, body}))
+    Logger.debug(inspect({action, body}))
     :ok
   end
 
   def handle(_), do: :ignore
   @spec result(result(), Github.t()) :: :ok
   defp result(:ok, %{event_name: event_name}) do
-    Api.debug("[ok] #{event_name}")
+    Logger.debug("[ok] #{event_name}")
     :ok
   end
 
   defp result(:ignore, %{event_name: event_name}) do
-    Api.error("[ignore] #{event_name}")
+    Logger.error("[ignore] #{event_name}")
     :ok
   end
 end
