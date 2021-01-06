@@ -78,8 +78,8 @@ defmodule ElixirBot.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tentacat, "~> 2.0"},
       {:earmark, "~> 1.4"},
+      {:action, "~> 0.1"},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", runtime: false}
