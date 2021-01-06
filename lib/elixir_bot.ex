@@ -10,12 +10,19 @@ defmodule ElixirBot do
   alias ElixirBot.Events
   require Logger
 
-  @type result :: :ok | :ignore
+  @type result :: Action.t()
 
   @spec main :: :ok
   def main do
-    %Github{} = github = Github.init()
-    github |> handle() |> result(github)
+    result =
+      with {:ok, github} <- Github.init(),
+           {:ok, github} <- handle(github) do
+        github
+      else
+        err -> err
+      end
+
+    Logger.debug(result)
   end
 
   @module_map %{
@@ -28,15 +35,15 @@ defmodule ElixirBot do
     @module_map[event_name].handle(github)
   end
 
-  def handle(_), do: :ignore
-  @spec result(result(), Github.t()) :: :ok
-  defp result(:ok, %{event_name: event_name}) do
-    Logger.debug("[ok] #{event_name}")
-    :ok
-  end
+  def handle(_), do: {:error, :ignored}
 
-  defp result(:ignore, %{event_name: event_name}) do
-    Logger.error("[ignore] #{event_name}")
-    :ok
-  end
+  # @spec result(result(), Github.t()) :: :ok
+  # defp result(:ok, %{event_name: event_name}) do
+  #   Logger.debug("[ok] #{event_name}")
+  #   :ok
+  # end
+  # defp result(:ignore, %{event_name: event_name}) do
+  #   Logger.error("[ignore] #{event_name}")
+  #   :ok
+  # end
 end

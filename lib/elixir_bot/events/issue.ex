@@ -8,9 +8,11 @@ defmodule ElixirBot.Events.Issue do
   @actions ["opened", "edited"]
 
   @impl true
-  def handle(%Github{event: %{action: action, issue: %{body: body}}}) when action in @actions do
+  def handle(%Github{event: %{action: action, issue: %{body: body}}} = github)
+      when action in @actions do
     Logger.debug(inspect({action, body}))
+    {:ok, github}
   end
 
-  def handle(_), do: :ignored
+  def handle(_), do: {:error, :ignored}
 end

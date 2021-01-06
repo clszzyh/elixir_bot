@@ -7,9 +7,7 @@ defmodule ElixirBot.Event do
 
   alias Action.Github
 
-  @type result :: ElixirBot.result()
-
-  @callback handle(Github.t()) :: result
+  @callback handle(Github.t()) :: ElixirBot.result()
 
   defmacro __using__(_) do
     quote do
