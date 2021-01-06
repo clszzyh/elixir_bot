@@ -17,4 +17,10 @@ defmodule ElixirBot.Event.Issue do
   end
 
   def before_process(_), do: {:error, :ignored}
+
+  @impl true
+  def process(%Github{id: id} = github) do
+    result = Github.invoke(github, &Tentacat.Issues.Reactions.create/5, [id, %{content: "eyes"}])
+    {:ok, %{github | result: result}}
+  end
 end

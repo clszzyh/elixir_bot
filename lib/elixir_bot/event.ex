@@ -6,6 +6,7 @@ defmodule ElixirBot.Event do
   """
 
   alias Action.Github
+  require Logger
 
   # @callback preproccess(Github.t()) :: ElixirBot.result()
   @callback before_process(Github.t()) :: ElixirBot.result()
@@ -27,6 +28,18 @@ defmodule ElixirBot.Event do
     end
   end
 
-  def before_proccess_all(g), do: {:ok, g}
-  def proccess_all(g), do: {:ok, g}
+  def before_process(%Github{event_name: event_name, result: result} = g) do
+    Logger.info("[before process] #{event_name} #{inspect(result)}")
+    {:ok, g}
+  end
+
+  def process(%Github{event_name: event_name, result: result} = g) do
+    Logger.info("[process] #{event_name} #{inspect(result)}")
+    {:ok, g}
+  end
+
+  def end_process(%Github{event_name: event_name, result: result} = g) do
+    Logger.info("[end process] #{event_name} #{inspect(result)}")
+    {:ok, g}
+  end
 end

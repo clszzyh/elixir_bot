@@ -34,10 +34,11 @@ defmodule ElixirBot do
   def handle(%{event_name: event_name} = github) when is_map_key(@module_map, event_name) do
     module = @module_map[event_name]
 
-    with {:ok, github} <- Event.before_proccess_all(github),
-         {:ok, github} <- module.before_proccess(github),
-         {:ok, github} <- Event.proccess_all(github),
-         {:ok, github} <- module.proccess(github) do
+    with {:ok, github} <- Event.before_process(github),
+         {:ok, github} <- module.before_process(github),
+         {:ok, github} <- Event.process(github),
+         {:ok, github} <- module.process(github),
+         {:ok, github} <- Event.end_process(github) do
       github
     else
       err -> err
