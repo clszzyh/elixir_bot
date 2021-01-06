@@ -57,7 +57,7 @@ jobs:
       - name: Get tag version
         id: get_tag_version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
-      - name: Modify version and changelog
+      - name: Modify version
         if: contains(github.ref, 'tags/v')
         run: |
           NEW_VERSION=$(echo $VERSION | sed -e 's/^v//')
@@ -433,7 +433,7 @@ jobs:
           echo $NEW_VERSION
           cat VERSION
           echo $NEW_VERSION > VERSION
-          git add VERSION CHANGELOG.md && git commit -m "Update version and changelog" || echo "No changes to CHANGELOG.md"
+          git add VERSION && git commit -m "Update version" || echo "No changes to VERSION"
           git push "https://$GITHUB_REPOSITORY_OWNER:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:main
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
