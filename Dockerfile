@@ -13,6 +13,8 @@ ENV HEX_HTTP_TIMEOUT=500
 RUN mix local.hex --force && \
     mix local.rebar --force
 
+RUN apk add git
+
 RUN echo "0.0.1" > VERSION
 RUN echo "## README" > README.md
 COPY mix.exs mix.lock ./
