@@ -14,6 +14,8 @@ defmodule ElixirBot do
 
   @spec main :: :ok
   def main do
+    {:ok, _} = HTTPoison.start()
+
     result =
       with {:ok, github} <- Github.init(),
            {:ok, github} <- handle(github) do
