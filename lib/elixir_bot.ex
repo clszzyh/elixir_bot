@@ -7,7 +7,7 @@ defmodule ElixirBot do
   def version, do: @version
 
   alias Action.Github
-  alias ElixirBot.Events
+  alias ElixirBot.Event
   require Logger
 
   @type result :: Action.t()
@@ -26,13 +26,22 @@ defmodule ElixirBot do
   end
 
   @module_map %{
-    "issue_comment" => Events.IssueComment,
-    "issues" => Events.Issue
+    "issue_comment" => Event.IssueComment,
+    "issues" => Event.Issue
   }
 
   @spec handle(Github.t()) :: result()
   def handle(%{event_name: event_name} = github) when is_map_key(@module_map, event_name) do
-    @module_map[event_name].handle(github)
+    module = @module_map[event_name]
+
+    with {:ok, github} <- Event.before_proccess_all(github),
+         {:ok, github} <- module.before_proccess(github),
+         {:ok, github} <- Event.proccess_all(github),
+         {:ok, github} <- module.proccess(github) do
+      github
+    else
+      err -> err
+    end
   end
 
   def handle(_), do: {:error, :ignored}
