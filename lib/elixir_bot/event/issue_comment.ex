@@ -18,12 +18,8 @@ defmodule ElixirBot.Event.IssueComment do
 
   @impl true
   def process(%Github{id: id} = github) do
-    result =
-      Github.invoke(github, &Tentacat.Issues.Comments.Reactions.create/5, [
-        id,
-        %{content: "rocket"}
-      ])
-
-    {:ok, %{github | result: result}}
+    github
+    |> Github.invoke(&Tentacat.Issues.Comments.Reactions.create/5, [id, %{content: "rocket"}])
+    |> Event.handle_invoke_result(github)
   end
 end

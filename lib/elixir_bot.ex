@@ -12,17 +12,40 @@ defmodule ElixirBot do
 
   @type result :: Action.t()
 
-  @spec main :: :ok
+  @spec main :: :ok | :error
   def main do
     {:ok, _} = Application.ensure_all_started(:elixir_bot)
     [_ | _] = Application.get_env(:tentacat, :extra_headers)
-    {:ok, _} = HTTPoison.start()
 
-    with {:ok, github} <- Github.init(),
-         {:ok, github} <- handle(github) do
-      Logger.debug(github)
-    else
-      {:error, reason} -> Logger.error(reason)
+    {:ok, github} = Github.init()
+
+    try do
+      case handle(github) do
+        {:ok, _github} ->
+          Logger.debug("ok")
+          :ok
+
+        {:error, reason} ->
+          Logger.error(reason)
+          :error
+      end
+    catch
+      kind, err ->
+        body = """
+        ```elixir
+        #{Kernel.CLI.format_error(kind, err, __STACKTRACE__)}
+        ```
+        """
+
+        issue_body = %{
+          title: "[ElixirBot Error]",
+          labels: ["bug"],
+          body: body
+        }
+
+        _ = Github.invoke(github, &Tentacat.Issues.create/4, [issue_body])
+
+        reraise err, __STACKTRACE__
     end
   end
 
