@@ -5,7 +5,7 @@ defmodule ElixirBot.Event.IssueComment do
 
   use ElixirBot.Event
 
-  @actions ["created"]
+  @actions ["created", "edited"]
 
   @impl true
   def before_process(%Github{event: %{action: action, comment: %{body: body, id: id}}} = github)

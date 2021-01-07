@@ -3,7 +3,9 @@ name: event
 on:
   workflow_dispatch:
   issue_comment:
+    types: [created, edited]
   issues:
+    types: [opened, edited]
 
 jobs:
   exbot:
