@@ -6,16 +6,17 @@ defmodule ElixirBot.Event do
   """
 
   alias Action.Github
+  alias ElixirBot.Context
   require Logger
 
-  @type result :: ElixirBot.result()
-  @type stage :: :parse | :before | :process
+  @type result :: Context.result()
+  @type stage :: Context.stage()
 
   @stages [:parse, :before, :process]
 
   def stages, do: @stages
 
-  @callback handle_event(stage, Github.t()) :: result()
+  @callback handle_event(stage, Context.t()) :: result()
 
   defmacro __using__(_) do
     quote do
@@ -27,19 +28,19 @@ defmodule ElixirBot.Event do
     end
   end
 
-  @spec handle_invoke_result(Github.invoke_result(), Github.t()) :: result()
-  def handle_invoke_result({state, result, _resp}, github) when state in [200, 201] do
-    {:ok, %{github | state: state, result: result}}
+  @spec handle_invoke_result(Github.invoke_result(), Context.t()) :: result()
+  def handle_invoke_result({state, result, _resp}, ctx) when state in [200, 201] do
+    {:ok, %{ctx | state: state, result: result}}
   end
 
-  def handle_invoke_result({state, %{"message" => message}, _resp}, github) do
-    {:error, %{github | state: state, result: "[#{state}] #{message}"}}
+  def handle_invoke_result({state, %{"message" => message}, _resp}, _ctx) do
+    {:error, "[#{state}] #{message}"}
   end
 
-  @spec process(stage(), module(), Github.t()) :: result()
-  def process(stage, module, %Github{} = g) do
-    g = %{g | stage: stage}
-    :ok = Logger.info(inspect(g))
-    module.handle_event(stage, g)
+  @spec process(stage(), module(), Context.t()) :: result()
+  def process(stage, module, %Context{} = ctx) do
+    ctx = %{ctx | stage: stage}
+    :ok = Logger.info(inspect(ctx))
+    module.handle_event(stage, ctx)
   end
 end

@@ -10,18 +10,18 @@ defmodule ElixirBot.Event.Issue do
   @impl true
   def handle_event(
         :parse,
-        %Github{event: %{action: action, issue: %{body: body, number: number}}} = github
+        %{github: %{event: %{action: action, issue: %{body: body, number: number}}}} = ctx
       )
       when action in @actions do
     Logger.debug(inspect({action, body, number}))
-    {:ok, %{github | id: number}}
+    {:ok, %{ctx | id: number, body: body, number: number}}
   end
 
   def handle_event(:parse, _), do: {:error, :ignored}
 
-  def handle_event(:before, %Github{id: id} = github) do
+  def handle_event(:before, %{number: id, github: github} = ctx) do
     github
     |> Github.invoke(&Tentacat.Issues.Reactions.create/5, [id, %{content: "eyes"}])
-    |> Event.handle_invoke_result(github)
+    |> Event.handle_invoke_result(ctx)
   end
 end
