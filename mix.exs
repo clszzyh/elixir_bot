@@ -81,6 +81,7 @@ defmodule ElixirBot.MixProject do
       {:earmark, "~> 1.4"},
       # {:action, "~> 0.1"},
       {:action, github: "clszzyh/action"},
+      # {:action, path: "../action"},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", runtime: false}
