@@ -25,6 +25,10 @@ defmodule ElixirBot do
           Logger.debug("ok")
           :ok
 
+        {:error, %Github{stage: stage, result: result}} ->
+          Logger.error("[#{stage}] #{result}")
+          :error
+
         {:error, reason} ->
           Logger.error(reason)
           :error

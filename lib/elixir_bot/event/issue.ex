@@ -9,7 +9,7 @@ defmodule ElixirBot.Event.Issue do
 
   @impl true
   def handle_event(
-        :before,
+        :parse,
         %Github{event: %{action: action, issue: %{body: body, number: number}}} = github
       )
       when action in @actions do
@@ -17,9 +17,9 @@ defmodule ElixirBot.Event.Issue do
     {:ok, %{github | id: number}}
   end
 
-  def handle_event(:before, _), do: {:error, :ignored}
+  def handle_event(:parse, _), do: {:error, :ignored}
 
-  def handle_event(:process, %Github{id: id} = github) do
+  def handle_event(:before, %Github{id: id} = github) do
     github
     |> Github.invoke(&Tentacat.Issues.Reactions.create/5, [id, %{content: "eyes"}])
     |> Event.handle_invoke_result(github)

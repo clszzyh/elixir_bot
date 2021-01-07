@@ -9,9 +9,9 @@ defmodule ElixirBot.Event do
   require Logger
 
   @type result :: ElixirBot.result()
-  @type stage :: :before | :process
+  @type stage :: :parse | :before | :process
 
-  @stages [:before, :process]
+  @stages [:parse, :before, :process]
 
   def stages, do: @stages
 
@@ -32,8 +32,8 @@ defmodule ElixirBot.Event do
     {:ok, %{github | state: state, result: result}}
   end
 
-  def handle_invoke_result({state, %{"message" => message}, _resp}, _) do
-    {:error, "[#{state}] #{message}"}
+  def handle_invoke_result({state, %{"message" => message}, _resp}, github) do
+    {:error, %{github | state: state, result: "[#{state}] #{message}"}}
   end
 
   @spec process(stage(), module(), Github.t()) :: result()

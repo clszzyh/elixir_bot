@@ -9,7 +9,7 @@ defmodule ElixirBot.Event.IssueComment do
 
   @impl true
   def handle_event(
-        :before,
+        :parse,
         %Github{event: %{action: action, comment: %{body: body, id: id}}} = github
       )
       when action in @actions do
@@ -17,9 +17,9 @@ defmodule ElixirBot.Event.IssueComment do
     {:ok, %{github | id: id}}
   end
 
-  def handle_event(:before, _), do: {:error, :ignored}
+  def handle_event(:parse, _), do: {:error, :ignored}
 
-  def handle_event(:process, %Github{id: id} = github) do
+  def handle_event(:before, %Github{id: id} = github) do
     github
     |> Github.invoke(&Tentacat.Issues.Comments.Reactions.create/5, [id, %{content: "rocket"}])
     |> Event.handle_invoke_result(github)
