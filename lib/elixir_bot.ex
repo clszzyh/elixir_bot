@@ -14,6 +14,7 @@ defmodule ElixirBot do
 
   @spec main :: :ok
   def main do
+    {:ok, _} = Application.ensure_all_started(:elixir_bot)
     [_ | _] = Application.get_env(:tentacat, :extra_headers)
     {:ok, _} = HTTPoison.start()
 
