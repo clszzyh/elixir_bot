@@ -38,21 +38,11 @@ defmodule ElixirBot do
          {:ok, github} <- Event.process(github),
          {:ok, github} <- module.process(github),
          {:ok, github} <- Event.end_process(github) do
-      github
+      {:ok, github}
     else
       err -> err
     end
   end
 
   def handle(_), do: {:error, :ignored}
-
-  # @spec result(result(), Github.t()) :: :ok
-  # defp result(:ok, %{event_name: event_name}) do
-  #   Logger.debug("[ok] #{event_name}")
-  #   :ok
-  # end
-  # defp result(:ignore, %{event_name: event_name}) do
-  #   Logger.error("[ignore] #{event_name}")
-  #   :ok
-  # end
 end
