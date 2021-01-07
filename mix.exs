@@ -16,7 +16,7 @@ defmodule ElixirBot.MixProject do
       elixirc_options: [warnings_as_errors: System.get_env("CI") == "true"],
       package: [
         licenses: ["MIT"],
-        files: ["lib", ".formatter.exs", "mix.exs", "README*", "CHANGELOG*", "VERSION", "config"],
+        files: ["lib", ".formatter.exs", "mix.exs", "README*", "CHANGELOG*", "VERSION"],
         exclude_patterns: ["priv/plts", ".DS_Store"],
         links: %{"GitHub" => @github_url, "Changelog" => @github_url <> "/blob/main/CHANGELOG.md"}
       ],
