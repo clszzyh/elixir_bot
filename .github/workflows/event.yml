@@ -12,5 +12,3 @@ jobs:
       - uses: actions/checkout@v2
       - name: elixir_bot
         uses: ./
-        with:
-          token: ${{secrets.PERSONAL_TOKEN}}
