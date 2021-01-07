@@ -35,21 +35,27 @@ defmodule ElixirBot do
       end
     catch
       kind, err ->
+        error_message = Kernel.CLI.format_error(kind, err, __STACKTRACE__)
+
         body = """
         ```elixir
-        #{Kernel.CLI.format_error(kind, err, __STACKTRACE__)}
+        #{error_message}
         ```
         """
 
         issue_body = %{
-          title: "[ElixirBot Error]",
+          title:
+            "[ElixirBot Error] #{to_string(error_message) |> String.split("\n") |> List.first()}",
           labels: ["bug"],
           body: body
         }
 
-        _ = Github.invoke(github, &Tentacat.Issues.create/4, [issue_body])
+        IO.puts(body)
 
-        reraise err, __STACKTRACE__
+        {_state, _result, _} = Github.invoke(github, &Tentacat.Issues.create/4, [issue_body])
+        # IO.puts(inspect({state, result}))
+
+        raise("ElixirBot Error")
     end
   end
 
