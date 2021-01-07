@@ -12,10 +12,6 @@ defmodule ElixirBot.Event do
   @type result :: Context.result()
   @type stage :: Context.stage()
 
-  @stages [:parse, :before, :process]
-
-  def stages, do: @stages
-
   @callback handle_event(stage, Context.t()) :: result()
 
   defmacro __using__(_) do

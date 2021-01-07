@@ -4,7 +4,7 @@ defmodule ElixirBot.Server do
   """
 
   alias ElixirBot.Context
-  use GenServer
+  use GenServer, restart: :temporary
 
   def start_link(o) do
     GenServer.start_link(__MODULE__, o, name: __MODULE__)
@@ -30,6 +30,7 @@ defmodule ElixirBot.Server do
 
   @impl true
   def terminate(reason, state) do
+    IO.puts(inspect({:terminate, reason}))
     Context.cleanup(reason, state)
   end
 end
