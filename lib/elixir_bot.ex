@@ -11,6 +11,7 @@ defmodule ElixirBot do
 
   @spec main :: :ok
   def main do
+    {:ok, _} = Application.ensure_all_started(:elixir_bot)
     :ok = Server.next()
   end
 end

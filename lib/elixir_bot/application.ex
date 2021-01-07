@@ -4,7 +4,6 @@ defmodule ElixirBot.Application do
   use Application
 
   def start(_type, _args) do
-    # {:ok, _} = Application.ensure_all_started(:elixir_bot)
     [_ | _] = Application.get_env(:tentacat, :extra_headers)
 
     children = [{ElixirBot.Server, nil}]
