@@ -41,20 +41,22 @@ defmodule ElixirBot.Event do
   end
 
   @spec before_process(Github.t()) :: result()
-  def before_process(%Github{event_name: event_name, result: result} = g) do
-    Logger.info("[before process] #{event_name} #{inspect(result)}")
-    {:ok, g}
+  def before_process(%Github{} = g) do
+    {:ok, info(%{g | stage: :before_process})}
   end
 
   @spec process(Github.t()) :: result()
-  def process(%Github{event_name: event_name, result: result} = g) do
-    Logger.info("[process] #{event_name} #{inspect(result)}")
-    {:ok, g}
+  def process(%Github{} = g) do
+    {:ok, info(%{g | stage: :process})}
   end
 
   @spec end_process(Github.t()) :: result()
-  def end_process(%Github{event_name: event_name, result: result} = g) do
-    Logger.info("[end process] #{event_name} #{inspect(result)}")
-    {:ok, g}
+  def end_process(%Github{} = g) do
+    {:ok, info(%{g | stage: :end_process})}
+  end
+
+  defp info(g) do
+    Logger.info(inspect(g))
+    g
   end
 end
