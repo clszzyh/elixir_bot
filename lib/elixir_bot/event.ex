@@ -9,10 +9,13 @@ defmodule ElixirBot.Event do
   require Logger
 
   @type result :: ElixirBot.result()
+  @type stage :: :before | :process
 
-  # @callback preproccess(Github.t()) :: ElixirBot.result()
-  @callback before_process(Github.t()) :: result()
-  @callback process(Github.t()) :: result()
+  @stages [:before, :process]
+
+  def stages, do: @stages
+
+  @callback handle_event(stage, Github.t()) :: result()
 
   defmacro __using__(_) do
     quote do
@@ -21,13 +24,6 @@ defmodule ElixirBot.Event do
       alias Action.Github
       alias unquote(__MODULE__)
       require Logger
-
-      @impl true
-      def before_process(g), do: {:ok, g}
-      @impl true
-      def process(g), do: {:ok, g}
-
-      defoverridable unquote(__MODULE__)
     end
   end
 
@@ -40,23 +36,10 @@ defmodule ElixirBot.Event do
     {:error, "[#{state}] #{message}"}
   end
 
-  @spec before_process(Github.t()) :: result()
-  def before_process(%Github{} = g) do
-    {:ok, info(%{g | stage: :before_process})}
-  end
-
-  @spec process(Github.t()) :: result()
-  def process(%Github{} = g) do
-    {:ok, info(%{g | stage: :process})}
-  end
-
-  @spec end_process(Github.t()) :: result()
-  def end_process(%Github{} = g) do
-    {:ok, info(%{g | stage: :end_process})}
-  end
-
-  defp info(g) do
-    Logger.info(inspect(g))
-    g
+  @spec process(stage(), module(), Github.t()) :: result()
+  def process(stage, module, %Github{} = g) do
+    g = %{g | stage: stage}
+    :ok = Logger.info(inspect(g))
+    module.handle_event(stage, g)
   end
 end

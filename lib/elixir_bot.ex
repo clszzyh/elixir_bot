@@ -58,15 +58,12 @@ defmodule ElixirBot do
   def handle(%{event_name: event_name} = github) when is_map_key(@module_map, event_name) do
     module = @module_map[event_name]
 
-    with {:ok, github} <- Event.before_process(github),
-         {:ok, github} <- module.before_process(github),
-         {:ok, github} <- Event.process(github),
-         {:ok, github} <- module.process(github),
-         {:ok, github} <- Event.end_process(github) do
-      {:ok, github}
-    else
-      err -> err
-    end
+    Enum.reduce_while(Event.stages(), {:ok, github}, fn stage, {:ok, github} ->
+      case Event.process(stage, module, github) do
+        {:ok, github} -> {:cont, {:ok, github}}
+        {:error, reason} -> {:halt, {:error, reason}}
+      end
+    end)
   end
 
   def handle(_), do: {:error, :ignored}
