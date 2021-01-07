@@ -16,15 +16,12 @@ defmodule ElixirBot do
   def main do
     {:ok, _} = HTTPoison.start()
 
-    result =
-      with {:ok, github} <- Github.init(),
-           {:ok, github} <- handle(github) do
-        github
-      else
-        err -> err
-      end
-
-    Logger.debug(result)
+    with {:ok, github} <- Github.init(),
+         {:ok, github} <- handle(github) do
+      Logger.debug(github)
+    else
+      {:error, reason} -> Logger.error(reason)
+    end
   end
 
   @module_map %{

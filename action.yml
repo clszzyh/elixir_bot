@@ -9,6 +9,10 @@ inputs:
     description: "Github Object"
     default: ${{ toJson(github) }}
     required: false
+  token:
+    description: "Github Token"
+    default: ${{ github.token }}
+    required: false
 
 runs:
   using: "docker"
