@@ -14,6 +14,7 @@ defmodule ElixirBot do
 
   @spec main :: :ok
   def main do
+    [_ | _] = Application.get_env(:tentacat, :extra_headers)
     {:ok, _} = HTTPoison.start()
 
     with {:ok, github} <- Github.init(),

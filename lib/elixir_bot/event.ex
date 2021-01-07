@@ -35,7 +35,6 @@ defmodule ElixirBot.Event do
 
   def process(%Github{event_name: event_name, result: result} = g) do
     Logger.info("[process] #{event_name} #{inspect(result)}")
-    Logger.error("#{inspect(Application.get_env(:tentacat, :extra_headers, []))}")
     {:ok, g}
   end
 
