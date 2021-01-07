@@ -91,6 +91,7 @@ defmodule ElixirBot.MixProject do
   defp aliases do
     [
       docker_build: "cmd docker build -t elixir_bot:latest .",
+      docker_pull: "cmd docker pull ghcr.io/clszzyh/elixir_bot:main",
       ci: [
         "compile --warnings-as-errors --force --verbose",
         "format --check-formatted",
