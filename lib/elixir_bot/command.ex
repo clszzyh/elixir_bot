@@ -21,10 +21,11 @@ defmodule ElixirBot.Command do
     ])
   )
 
-  @type major_command :: :ping | :version
+  @type major_command :: :ping | :version | :unknown
   @type command :: {major_command, binary()}
 
   @spec handle(command(), Context.t()) :: {:ok, Event.run_result()}
   def handle({:ping, _}, _), do: {:ok, {:raw, "pong"}}
+  def handle({:unknown, message}, _), do: {:ok, {:raw, message}}
   def handle({:version, _}, _), do: {:ok, {:raw, @version}}
 end

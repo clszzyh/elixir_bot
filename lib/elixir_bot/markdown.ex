@@ -53,7 +53,7 @@ defmodule ElixirBot.Markdown do
   defp build_command(@prefix <> rest) do
     case Command.parse(rest) do
       {:ok, [cmd], rest, _, _, _} -> {:ok, {cmd, rest}}
-      {:error, message, _, _, _, _} -> {:error, message}
+      {:error, message, _, _, _, _} -> {:ok, {:unknown, message}}
     end
   end
 

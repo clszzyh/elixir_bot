@@ -70,7 +70,7 @@ defmodule ElixirBot.Event do
   defp concat_result(result, body) do
     result
     |> parse_result()
-    |> Kernel.<>("\n")
+    |> Kernel.<>("\n----\n")
     |> Kernel.<>(Util.quote_text(body))
     |> Util.append_signature()
   end
