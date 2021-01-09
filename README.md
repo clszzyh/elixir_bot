@@ -21,12 +21,13 @@ jobs:
   exbot:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: clszzyh/elixir_bot@main
 ```
 
 <!-- MDOC -->
 
-### Commands
+## Commands
 
 <!-- MDOC -->
 
@@ -36,4 +37,3 @@ jobs:
 | `@ex-bot version` | print current version |
 
 <!-- MDOC -->
-
