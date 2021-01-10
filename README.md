@@ -30,7 +30,7 @@ jobs:
 
 ## Eval Elixir Code
 
-Create a github issue or comment a issue with
+Create an issue or comment with
 
 ```
 ​```elixir
@@ -44,11 +44,11 @@ factorial.(22222)
 ​```
 ```
 
-See also [sand package](https://github.com/bopjesvla/sand) for sandbox.
+See also [sand package](https://github.com/bopjesvla/sand) for elixir sandbox.
 
 ## Commands
 
-Create a github issue or comment a issue with
+Create an issue or comment with
 
 ```sh
 @ex-bot {{command}} {{args}}
