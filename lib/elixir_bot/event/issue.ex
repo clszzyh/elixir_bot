@@ -25,7 +25,7 @@ defmodule ElixirBot.Event.Issue do
   end
 
   def handle_event(:parse, _), do: {:error, :ignore_parse}
-  def handle_event(:before, %{markdown: %{code: nil, ast: nil}}), do: {:error, :ignore_before}
+  def handle_event(:before, %{markdown: %{code: nil, command: nil}}), do: {:error, :ignore_before}
 
   def handle_event(:before, %{number: id, github: github} = ctx) do
     github
