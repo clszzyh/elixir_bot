@@ -63,3 +63,9 @@ Create an issue or comment with
 
 <!-- MDOC -->
 
+
+
+## TODO
+
+- [ ] Permission (check issue owner)
+- [ ] Dynamic invoke tentacat
