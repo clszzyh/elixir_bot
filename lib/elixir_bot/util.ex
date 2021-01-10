@@ -4,7 +4,7 @@ defmodule ElixirBot.Util do
   """
 
   @external_resource readme = Path.join([__DIR__, "../../README.md"])
-  @commands readme |> File.read!() |> String.split("<!-- MDOC -->") |> Enum.fetch!(3)
+  @commands readme |> File.read!() |> String.split("<!-- MDOC -->") |> Enum.fetch!(2)
   @signature """
 
   <details><summary>Support Commands</summary>
