@@ -25,6 +25,8 @@ defmodule ElixirBot.Event do
 
       alias Action.Github
       alias ElixirBot.Markdown
+
+      use ElixirBot.Tracker, unquote(__MODULE__)
       alias unquote(__MODULE__)
       require Logger
     end
