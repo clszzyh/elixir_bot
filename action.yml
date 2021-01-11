@@ -1,9 +1,11 @@
 name: "elixir_bot"
 author: "clszzyh"
 description: "A Github Bot by Elixir."
+# https://haya14busa.github.io/github-action-brandings/
 branding:
   icon: code
-  color: gray-dark
+  color: green
+
 inputs:
   github:
     description: "Github Object"
